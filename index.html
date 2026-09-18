@@ -3,219 +3,794 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rohit IT Solutions</title>
+<title>Rohit IT Solutions — IT Infrastructure, Software & Digital Growth</title>
+<meta name="description" content="IT infrastructure, cloud, software development, web development and digital marketing services for growing businesses.">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; scroll-behavior:smooth;}
+  :root{
+    --bg:#0a0e1a;
+    --bg-soft:#0d1220;
+    --panel:#121a2b;
+    --panel-2:#161f34;
+    --line:#232c42;
+    --text:#e8ecf6;
+    --text-dim:#97a2bd;
+    --text-faint:#5f6a87;
+    --amber:#e8a33d;
+    --amber-soft:#f2c07a;
+    --teal:#33c6b0;
+    --teal-soft:#7fe0d0;
+    --danger:#e8615f;
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:22px;
+    --maxw:1180px;
+  }
 
-body {
-    background: #0f172a;
-    color: #fff;
-}
+  :root[data-theme="light"]{
+    --bg:#f6f7fb;
+    --bg-soft:#eef0f6;
+    --panel:#ffffff;
+    --panel-2:#f2f4f9;
+    --line:#e1e5ef;
+    --text:#171b28;
+    --text-dim:#565f77;
+    --text-faint:#8790a3;
+    --amber:#d98a1f;
+    --amber-soft:#b06e10;
+    --teal:#0e9a86;
+    --teal-soft:#0b7f6f;
+    --danger:#d1453b;
+  }
 
-/* NAV */
-nav {
-    display:flex;
-    justify-content:space-between;
-    padding:20px 50px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(12px);
-    position:sticky;
-    top:0;
-}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease,color .25s ease;
+  }
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;}
+  a{color:inherit;}
+  img,svg{display:block;}
+  button{font-family:inherit;cursor:pointer;}
+  ::selection{background:var(--amber);color:#0a0e1a;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
 
-nav h2 {color:#38bdf8;}
+  /* subtle grid texture on body */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;
+    opacity:.15;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
+  }
 
-nav a {
-    margin-left:20px;
-    color:white;
-    text-decoration:none;
-}
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,14,26,0.82);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;
+  }
+  .logo-mark{
+    width:34px;height:34px;border-radius:9px;
+    background:linear-gradient(145deg,var(--amber),#c97f1f);
+    display:flex;align-items:center;justify-content:center;
+    color:#20140a;font-weight:700;font-size:15px;
+    flex-shrink:0;
+  }
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a{
+    text-decoration:none;color:var(--text-dim);font-size:15px;font-weight:500;
+    transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    display:flex;align-items:center;gap:8px;
+  }
+  .theme-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:40px;height:40px;border-radius:100px;
+    border:1px solid var(--line);background:none;color:var(--text);
+    transition:border-color .2s,background .2s;
+  }
+  .theme-toggle:hover{border-color:var(--amber);background:rgba(232,163,61,.08);}
+  .theme-toggle svg{width:18px;height:18px;}
+  .menu-btn{
+    display:none;background:none;border:1px solid var(--line);border-radius:8px;
+    width:40px;height:40px;color:var(--text);align-items:center;justify-content:center;
+  }
+  @media(max-width:860px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      background:var(--bg-soft);border-bottom:1px solid var(--line);
+      flex-direction:column;align-items:flex-start;gap:0;
+      max-height:0;overflow:hidden;transition:max-height .3s ease;
+    }
+    .nav-links.open{max-height:400px;}
+    .nav-links a{width:100%;padding:16px 28px;border-bottom:1px solid var(--line);}
+    .menu-btn{display:flex;}
+  }
 
-/* HERO */
-.hero {
-    padding:120px 20px;
-    text-align:center;
-}
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;z-index:1;
+    padding:96px 0 80px;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;
+  }
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+  .eyebrow-line{
+    display:flex;align-items:center;gap:10px;
+    color:var(--teal-soft);font-size:14px;font-weight:600;margin-bottom:22px;
+  }
+  .eyebrow-line .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--teal);
+    box-shadow:0 0 0 4px rgba(51,198,176,.18);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 4px rgba(51,198,176,.18);}
+    50%{box-shadow:0 0 0 7px rgba(51,198,176,.08);}
+  }
+  .hero h1{
+    font-size:clamp(34px,5vw,54px);
+    font-weight:700;line-height:1.08;
+    color:var(--text);
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--amber-soft);
+  }
+  .hero p{
+    color:var(--text-dim);font-size:17px;max-width:520px;margin-bottom:34px;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:14px 26px;border-radius:100px;
+    font-weight:600;font-size:15px;text-decoration:none;
+    border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{
+    background:var(--amber);color:#20140a;
+  }
+  .btn-primary:hover{box-shadow:0 8px 24px rgba(232,163,61,.28);}
+  .btn-ghost{
+    border:1px solid var(--line);color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--text-dim);}
+  .btn svg{width:18px;height:18px;}
 
-.hero h1 {
-    font-size:48px;
-    background: linear-gradient(90deg,#38bdf8,#6366f1);
-    -webkit-background-clip:text;
-    color:transparent;
-}
+  /* hero status panel */
+  .status-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:26px;position:relative;overflow:hidden;
+  }
+  .status-card::before{
+    content:"";position:absolute;top:-40%;right:-30%;width:280px;height:280px;
+    background:radial-gradient(circle,rgba(232,163,61,.14),transparent 70%);
+  }
+  .status-head{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px;
+    position:relative;
+  }
+  .status-head span{font-size:13px;color:var(--text-faint);font-weight:600;}
+  .status-live{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--teal-soft);font-weight:600;}
+  .status-live .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+  .status-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 0;border-bottom:1px solid var(--line);
+    font-size:14px;position:relative;
+  }
+  .status-row:last-child{border-bottom:none;}
+  .status-row .label{color:var(--text-dim);}
+  .status-row .value{font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;}
+  .status-row .value.ok{color:var(--teal-soft);}
+  .status-row .value svg{width:15px;height:15px;}
 
-.hero p {
-    margin:20px 0;
-    color:#cbd5f5;
-}
+  .mini-process{display:flex;flex-direction:column;}
+  .mini-step{display:flex;gap:14px;position:relative;padding-bottom:20px;}
+  .mini-step:last-child{padding-bottom:0;}
+  .mini-step:not(:last-child)::after{
+    content:"";position:absolute;left:15px;top:32px;bottom:-4px;width:1px;background:var(--line);
+  }
+  .mini-step-no{
+    flex-shrink:0;width:32px;height:32px;border-radius:50%;
+    background:var(--bg-soft);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;color:var(--amber-soft);
+    position:relative;z-index:1;
+  }
+  .mini-step h4{font-size:14.5px;margin-bottom:3px;}
+  .mini-step p{font-size:12.5px;color:var(--text-dim);line-height:1.45;}
 
-.btn {
-    padding:12px 28px;
-    background:linear-gradient(90deg,#22c55e,#4ade80);
-    border-radius:30px;
-    text-decoration:none;
-    color:white;
-    margin:10px;
-    display:inline-block;
-}
+  /* ---------- ACRONYM STRIP ---------- */
+  .acronym-section{
+    position:relative;z-index:1;padding:56px 0 64px;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-soft);
+  }
+  .acronym-head{margin-bottom:32px;max-width:560px;}
+  .acronym-head .section-tag{margin-bottom:8px;}
+  .acronym-head h2{font-size:clamp(22px,2.8vw,28px);font-weight:700;}
+  .acronym-wordmark{
+    display:flex;justify-content:flex-start;gap:clamp(2px,1.2vw,10px);
+    margin-bottom:18px;
+  }
+  .acronym-wordmark span{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:clamp(40px,8vw,76px);line-height:1;
+    background:linear-gradient(160deg,var(--amber-soft),var(--teal-soft));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .acronym-row{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+    border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;
+  }
+  @media(max-width:900px){.acronym-row{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:560px){.acronym-row{grid-template-columns:1fr 1fr;}}
+  .acronym-item{
+    padding:26px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--panel);
+  }
+  .acronym-item:nth-child(5n){border-right:none;}
+  @media(max-width:900px){.acronym-item:nth-child(3n){border-right:none;}}
+  @media(max-width:560px){.acronym-item:nth-child(even){border-right:none;}}
+  .acronym-letter{
+    font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;
+    color:var(--amber-soft);line-height:1;margin-bottom:10px;
+  }
+  .acronym-word{font-size:14.5px;font-weight:600;margin-bottom:8px;}
+  .acronym-item p{font-size:12.5px;color:var(--text-dim);line-height:1.5;}
 
-/* SECTION */
-.section {
-    padding:80px 40px;
-    text-align:center;
-}
+  /* ---------- SECTION SHELL ---------- */
+  .section{position:relative;z-index:1;padding:74px 0;}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-tag{color:var(--amber-soft);font-size:14px;font-weight:600;margin-bottom:10px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,36px);font-weight:700;margin-bottom:12px;}
+  .section-head p{color:var(--text-dim);font-size:16px;}
+  .divider{height:1px;background:var(--line);border:none;}
 
-.section h2 {
-    margin-bottom:40px;
-}
+  /* ---------- SERVICE TABS ---------- */
+  .tabs{
+    display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;
+  }
+  .tab{
+    padding:10px 20px;border-radius:100px;border:1px solid var(--line);
+    background:transparent;color:var(--text-dim);font-size:14px;font-weight:600;
+    transition:.2s;
+  }
+  .tab.active{background:var(--amber);border-color:var(--amber);color:#20140a;}
+  .tab:not(.active):hover{border-color:var(--text-dim);color:var(--text);}
 
-/* GRID */
-.grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:25px;
-}
+  .service-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;
+  }
+  .service-card{
+    text-align:left;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius-md);padding:20px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:border-color .2s, background .2s, transform .2s;
+    color:var(--text);
+  }
+  .service-card:hover{
+    border-color:var(--amber);background:var(--panel-2);transform:translateY(-3px);
+  }
+  .service-card .num{
+    font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--text-faint);font-weight:600;
+  }
+  .service-card h3{font-size:16.5px;font-weight:600;}
+  .service-card p{font-size:13.5px;color:var(--text-dim);flex-grow:1;}
+  .service-card .see-more{
+    font-size:13px;font-weight:600;color:var(--teal-soft);display:flex;align-items:center;gap:6px;
+  }
+  .service-card .see-more svg{width:14px;height:14px;transition:transform .2s;}
+  .service-card:hover .see-more svg{transform:translateX(3px);}
 
-/* CARD */
-.card {
-    background: rgba(255,255,255,0.05);
-    padding:25px;
-    border-radius:15px;
-    backdrop-filter: blur(12px);
-    text-align:left;
-    transition:0.3s;
-}
+  /* ---------- PROCESS ---------- */
+  .process{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;
+  }
+  @media(max-width:800px){.process{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.process{grid-template-columns:1fr;}}
+  .process-step{
+    padding:28px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .process-step:nth-child(4n){border-right:none;}
+  @media(max-width:800px){.process-step:nth-child(even){border-right:none;}}
+  @media(max-width:480px){.process-step{border-right:none !important;}}
+  .process-step .step-no{
+    font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--line);
+    margin-bottom:14px;
+  }
+  .process-step h4{font-size:16px;margin-bottom:8px;}
+  .process-step p{font-size:13.5px;color:var(--text-dim);}
 
-.card:hover {
-    transform:translateY(-8px);
-    background: rgba(255,255,255,0.1);
-}
+  /* ---------- WHY ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;}
+  @media(max-width:760px){.why-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:480px){.why-grid{grid-template-columns:1fr;}}
+  .why-item{background:var(--panel);padding:26px 22px;}
+  .why-item h4{font-size:16px;margin-bottom:8px;}
+  .why-item p{font-size:13.5px;color:var(--text-dim);}
 
-.card h3 {
-    color:#38bdf8;
-    margin-bottom:10px;
-}
+  /* ---------- CTA STRIP ---------- */
+  .cta-strip{
+    margin:0 auto;max-width:var(--maxw);
+    background:linear-gradient(120deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:46px 40px;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+  }
+  .cta-strip h3{font-size:24px;margin-bottom:6px;}
+  .cta-strip p{color:var(--text-dim);font-size:15px;}
+  .cta-actions{display:flex;gap:12px;flex-wrap:wrap;}
 
-.highlight {
-    border:1px solid #38bdf8;
-}
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:760px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:26px;text-decoration:none;color:var(--text);
+    display:flex;flex-direction:column;gap:14px;
+    transition:.2s;
+  }
+  .contact-card:hover{border-color:var(--amber);transform:translateY(-3px);}
+  .contact-icon{
+    width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  }
+  .contact-icon svg{width:22px;height:22px;}
+  .contact-card.mail .contact-icon{background:rgba(232,163,61,.14);color:var(--amber-soft);}
+  .contact-card.call .contact-icon{background:rgba(51,198,176,.14);color:var(--teal-soft);}
+  .contact-card.wa .contact-icon{background:rgba(70,196,109,.14);color:#5fd487;}
+  .contact-card h4{font-size:15px;color:var(--text-faint);font-weight:600;}
+  .contact-card .value{font-size:17px;font-weight:600;}
+  .contact-card .action{font-size:13.5px;color:var(--text-dim);}
 
-/* CTA STRIP */
-.cta {
-    padding:50px;
-    text-align:center;
-    background: linear-gradient(90deg,#1e293b,#0f172a);
-}
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);padding:32px 0;text-align:center;
+    color:var(--text-faint);font-size:13.5px;position:relative;z-index:1;
+  }
 
-/* CONTACT */
-.contact a {
-    display:block;
-    margin:10px;
-    color:#4ade80;
-}
+  /* ---------- MODAL ---------- */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(5,7,14,.72);backdrop-filter:blur(4px);
+    display:none;align-items:center;justify-content:center;z-index:200;padding:20px;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal{
+    background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius-lg);
+    max-width:520px;width:100%;max-height:85vh;overflow-y:auto;
+    padding:32px;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:50%;
+    background:var(--panel);border:1px solid var(--line);color:var(--text-dim);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .modal-close:hover{color:var(--text);border-color:var(--text-dim);}
+  .modal-tag{font-size:13px;color:var(--amber-soft);font-weight:600;margin-bottom:8px;}
+  .modal h3{font-size:22px;margin-bottom:12px;padding-right:30px;}
+  .modal p.desc{color:var(--text-dim);font-size:15px;margin-bottom:22px;}
+  .modal ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:26px;}
+  .modal ul li{display:flex;gap:10px;font-size:14.5px;color:var(--text);align-items:flex-start;}
+  .modal ul li svg{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--teal-soft);}
+  .modal .modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
 
-/* FOOTER */
-footer {
-    text-align:center;
-    padding:20px;
-    background:#020617;
-}
+  /* ---------- FLOATING BUTTONS ---------- */
+  .float-stack{
+    position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:12px;z-index:150;
+  }
+  .float-btn{
+    width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 22px rgba(0,0,0,.35);text-decoration:none;color:#fff;
+    transition:transform .2s;
+  }
+  .float-btn:hover{transform:scale(1.08);}
+  .float-btn.wa{background:#25D366;}
+  .float-btn.call{background:var(--amber);color:#20140a;}
+  .float-btn svg{width:26px;height:26px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
 </style>
 </head>
-
 <body>
 
+<!-- inline icon defs -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"></path><path d="M22 6l-10 7L2 6"></path><path d="M2 6h20v12H2z"></path></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></symbol>
+<symbol id="i-wa" viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.24.62 4.42 1.8 6.33L4 29l7.83-1.75a12.9 12.9 0 0 0 4.19.7h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.86h-.01a10.2 10.2 0 0 1-3.68-.68l-4.4.98.98-4.29-.28-.44a10.2 10.2 0 0 1-1.57-5.41C6.06 9.5 10.55 5 16.02 5c5.47 0 9.92 4.5 9.92 10.02 0 5.52-4.45 9.84-9.92 9.84zm5.44-7.42c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.96 1.17-.18.2-.35.22-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.48-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.24-.24-.58-.49-.5-.68-.5-.17-.01-.37-.01-.57-.01s-.53.08-.8.38c-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.14 4.54.72.31 1.28.5 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"></path></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></symbol>
+<symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.2" y1="4.2" x2="5.9" y2="5.9"></line><line x1="18.1" y1="18.1" x2="19.8" y2="19.8"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.2" y1="19.8" x2="5.9" y2="18.1"></line><line x1="18.1" y1="5.9" x2="19.8" y2="4.2"></line></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></symbol>
+</defs>
+</svg>
+
 <nav>
-    <h2>Rohit IT</h2>
-    <div>
-        <a href="#services">Services</a>
-        <a href="#why">Why Me</a>
-        <a href="#contact">Contact</a>
+  <div class="nav-inner">
+    <div class="logo"><span class="logo-mark">RI</span> Rohit IT Solutions</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#why">Why Us</a>
+      <a href="#contact">Contact</a>
     </div>
+    <div class="nav-cta">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme"><svg width="18" height="18"><use href="#i-moon" id="themeIcon"></use></svg></button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><svg width="20" height="20"><use href="#i-menu" id="menuIcon"></use></svg></button>
+    </div>
+  </div>
 </nav>
 
 <section class="hero">
-    <h1>Complete IT Infrastructure & Cloud Support</h1>
-    <p>Setup | Security | Support for Businesses</p>
-    <a href="#services" class="btn">Explore Services</a>
-    <a href="#contact" class="btn">Contact Now</a>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-line"><span class="dot"></span> Currently taking new projects</div>
+      <h1>IT that runs quietly, software that <em>ships on time</em>.</h1>
+      <p>End-to-end IT infrastructure, cloud and security for your office — plus website, software and digital marketing help when you're ready to grow online.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn btn-primary">See all services <svg><use href="#i-arrow"></use></svg></a>
+        <a href="https://wa.me/919614196729?text=Hi%20Rohit%2C%20I%27d%20like%20to%20talk%20about%20a%20project" target="_blank" rel="noopener" class="btn btn-ghost"><svg><use href="#i-wa"></use></svg> Chat on WhatsApp</a>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-head">
+        <span>How a project runs</span>
+        <div class="status-live"><span class="dot"></span> Same 4 steps, every time</div>
+      </div>
+      <div class="mini-process">
+        <div class="mini-step">
+          <div class="mini-step-no">01</div>
+          <div><h4>Understand</h4><p>Discovery call to map your systems, pain points and goals — before anything is quoted.</p></div>
+        </div>
+        <div class="mini-step">
+          <div class="mini-step-no">02</div>
+          <div><h4>Plan</h4><p>Written scope, timeline and line-item pricing lands in your inbox. Nothing vague.</p></div>
+        </div>
+        <div class="mini-step">
+          <div class="mini-step-no">03</div>
+          <div><h4>Build</h4><p>Work begins with scheduled milestone check-ins, so you always know where things stand.</p></div>
+        </div>
+        <div class="mini-step">
+          <div class="mini-step-no">04</div>
+          <div><h4>Support</h4><p>Full handover with docs and access, plus ongoing support if you want it — no lock-in.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="services" class="section">
-    <h2>Core Services</h2>
-    <div class="grid">
-
-        <!-- TOP SERVICES -->
-        <div class="card highlight"><h3>IT Infrastructure Setup</h3><p>Complete office IT environment setup including systems, network and servers.</p></div>
-        <div class="card highlight"><h3>Google Workspace</h3><p>Business email setup, migration and admin configuration.</p></div>
-        <div class="card highlight"><h3>Microsoft 365</h3><p>Enterprise email and collaboration tools setup.</p></div>
-        <div class="card highlight"><h3>Email Security</h3><p>SPF, DKIM, DMARC implementation to protect emails.</p></div>
-        <div class="card highlight"><h3>Firewall & VPN</h3><p>Secure network setup with remote access configuration.</p></div>
-        <div class="card highlight"><h3>Remote IT Support</h3><p>Fast remote troubleshooting and issue resolution.</p></div>
-
+<section class="acronym-section">
+  <div class="wrap">
+    <div class="acronym-head">
+      <div class="section-tag">The name, spelled out</div>
+      <div class="acronym-wordmark" aria-hidden="true"><span>R</span><span>O</span><span>H</span><span>I</span><span>T</span></div>
+      <h2>ROHIT isn't just a name — it's how the work gets done</h2>
     </div>
+    <div class="acronym-row">
+      <div class="acronym-item">
+        <div class="acronym-letter">R</div>
+        <div class="acronym-word">Reliable</div>
+        <p>Systems and support you can count on, every single time.</p>
+      </div>
+      <div class="acronym-item">
+        <div class="acronym-letter">O</div>
+        <div class="acronym-word">Optimized</div>
+        <p>Every setup tuned for performance, not just left to function.</p>
+      </div>
+      <div class="acronym-item">
+        <div class="acronym-letter">H</div>
+        <div class="acronym-word">Hybrid</div>
+        <p>On-site expertise combined with fast, always-on remote support.</p>
+      </div>
+      <div class="acronym-item">
+        <div class="acronym-letter">I</div>
+        <div class="acronym-word">Infrastructure</div>
+        <p>The technical backbone that keeps your business running end to end.</p>
+      </div>
+      <div class="acronym-item">
+        <div class="acronym-letter">T</div>
+        <div class="acronym-word">Technology</div>
+        <p>Modern tools and practices, applied properly to your systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Services</div>
+      <h2>Everything your business needs, technically</h2>
+      <p>From keeping the office network alive to building the software and marketing that brings in customers. Tap any service to see exactly what's included.</p>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-filter="all">All services</button>
+      <button class="tab" data-filter="infra">IT Infrastructure & Support</button>
+      <button class="tab" data-filter="dev">Software & Web Development</button>
+      <button class="tab" data-filter="marketing">Digital Marketing</button>
+    </div>
+
+    <div class="service-grid" id="serviceGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">How a project runs</div>
+      <h2>Four steps, start to support</h2>
+      <p>Every engagement — a one-off fix or a full website and marketing build — moves through the same four stages, so you always know where things stand.</p>
+    </div>
+    <div class="process">
+      <div class="process-step"><div class="step-no">01</div><h4>Understand</h4><p>A detailed discovery call to map your current systems, everyday pain points and what success actually looks like for this project — all before a single rupee is quoted.</p></div>
+      <div class="process-step"><div class="step-no">02</div><h4>Plan</h4><p>A clear, written plan lands in your inbox: exact scope, a realistic timeline, and pricing broken down line by line — nothing vague left to argue about later.</p></div>
+      <div class="process-step"><div class="step-no">03</div><h4>Build</h4><p>Setup, development or campaign work begins with scheduled milestone check-ins, so you always know what's done, what's next and never end up in the dark.</p></div>
+      <div class="process-step"><div class="step-no">04</div><h4>Support</h4><p>Full handover with documentation and login access, plus an ongoing support option if you want one — no lock-in contracts, no disappearing after go-live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Why work with us</div>
+      <h2>Direct communication, no ticket queue</h2>
+      <p>You get straight answers and steady updates from planning through to support — never a support ticket disappearing into a queue.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><h4>Fast response</h4><p>Most queries answered same day over call or WhatsApp — not stuck behind a support ticket.</p></div>
+      <div class="why-item"><h4>Fair, transparent pricing</h4><p>You get a clear quote up front. No hidden charges added after the work starts.</p></div>
+      <div class="why-item"><h4>Corporate-grade experience</h4><p>Practices and standards learned from enterprise IT environments, applied to your business.</p></div>
+      <div class="why-item"><h4>Security-first setup</h4><p>Every setup — email, network or website — is configured with security as a default, not an afterthought.</p></div>
+      <div class="why-item"><h4>Dedicated account contact</h4><p>One consistent contact coordinates your project end to end, so nothing gets lost between planning and delivery.</p></div>
+      <div class="why-item"><h4>Built to be handed over</h4><p>Documentation and access are always yours — nothing kept deliberately confusing.</p></div>
+    </div>
+  </div>
 </section>
 
 <section class="section">
-    <h2>All IT Services</h2>
-    <div class="grid">
-
-        <div class="card"><h3>Managed IT Support</h3><p>Ongoing monitoring and maintenance.</p></div>
-        <div class="card"><h3>Email Migration</h3><p>Secure transfer between platforms.</p></div>
-        <div class="card"><h3>Cloud Backup</h3><p>Automated data backup solutions.</p></div>
-        <div class="card"><h3>Server Setup</h3><p>Local and cloud server configuration.</p></div>
-        <div class="card"><h3>DNS Management</h3><p>Domain records and configurations.</p></div>
-        <div class="card"><h3>Troubleshooting</h3><p>Quick issue diagnosis and fixes.</p></div>
-        <div class="card"><h3>Printer Setup</h3><p>Device and network printer installation.</p></div>
-        <div class="card"><h3>Asset Management</h3><p>Tracking IT assets efficiently.</p></div>
-        <div class="card"><h3>Security Compliance</h3><p>Best practice implementation.</p></div>
-        <div class="card"><h3>Automation</h3><p>Workflow and script automation.</p></div>
-        <div class="card"><h3>User Access</h3><p>Permission and role management.</p></div>
-        <div class="card"><h3>Password Policies</h3><p>Security policy setup.</p></div>
-        <div class="card"><h3>Data Recovery</h3><p>Recover lost data support.</p></div>
-        <div class="card"><h3>Software Setup</h3><p>Installation and updates.</p></div>
-        <div class="card"><h3>System Optimization</h3><p>Performance improvement.</p></div>
-        <div class="card"><h3>Cloud Storage</h3><p>Drive & OneDrive setup.</p></div>
-        <div class="card"><h3>Consultation</h3><p>IT planning guidance.</p></div>
-        <div class="card"><h3>Backup Monitoring</h3><p>Backup verification.</p></div>
-        <div class="card"><h3>License Management</h3><p>License tracking.</p></div>
-        <div class="card"><h3>Network Health Check</h3><p>Performance analysis.</p></div>
-        <div class="card"><h3>System Audit</h3><p>Complete IT review.</p></div>
-        <div class="card"><h3>Email Issues</h3><p>Email troubleshooting.</p></div>
-        <div class="card"><h3>Documentation</h3><p>IT documentation setup.</p></div>
-
+  <div class="wrap">
+    <div class="cta-strip">
+      <div>
+        <h3>Have a project in mind?</h3>
+        <p>Tell us what you're trying to fix or build — we'll tell you honestly if we're the right fit.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="https://wa.me/919614196729?text=Hi%20Rohit%2C%20I%27d%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener" class="btn btn-primary"><svg><use href="#i-wa"></use></svg> Message on WhatsApp</a>
+        <a href="tel:+919614196729" class="btn btn-ghost"><svg><use href="#i-phone"></use></svg> Call now</a>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="why" class="section">
-    <h2>Why Choose Me</h2>
-    <div class="grid">
-        <div class="card"><h3>Fast Response</h3></div>
-        <div class="card"><h3>Affordable Pricing</h3></div>
-        <div class="card"><h3>Corporate Experience</h3></div>
-        <div class="card"><h3>Reliable Support</h3></div>
-        <div class="card"><h3>Security Focused</h3></div>
-        <div class="card"><h3>Client Satisfaction</h3></div>
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">Contact</div>
+      <h2>Reach out directly</h2>
+      <p>Every button below opens your phone, mail app or WhatsApp with the details filled in.</p>
     </div>
-</section>
-
-<section class="cta">
-    <h2>Need IT Support for Your Business?</h2>
-    <a href="#contact" class="btn">Contact Now</a>
-</section>
-
-<section id="contact" class="section contact">
-    <h2>Contact</h2>
-    <a href="mailto:rohit7098224487@gmail.com">rohit7098224487@gmail.com</a>
-    <a href="tel:9614196729">9614196729</a>
+    <div class="contact-grid">
+      <a class="contact-card mail" href="mailto:rohit7098224487@gmail.com?subject=Project%20Enquiry">
+        <div class="contact-icon"><svg><use href="#i-mail"></use></svg></div>
+        <h4>Email</h4>
+        <div class="value">rohit7098224487@gmail.com</div>
+        <div class="action">Opens your email app →</div>
+      </a>
+      <a class="contact-card call" href="tel:+919614196729">
+        <div class="contact-icon"><svg><use href="#i-phone"></use></svg></div>
+        <h4>Call</h4>
+        <div class="value">+91 96141 96729</div>
+        <div class="action">Opens your dialer →</div>
+      </a>
+      <a class="contact-card wa" href="https://wa.me/919614196729?text=Hi%20Rohit%2C%20I%20found%20your%20site%20and%20wanted%20to%20ask%20about%20a%20project" target="_blank" rel="noopener">
+        <div class="contact-icon"><svg><use href="#i-wa"></use></svg></div>
+        <h4>WhatsApp</h4>
+        <div class="value">+91 96141 96729</div>
+        <div class="action">Opens WhatsApp chat →</div>
+      </a>
+    </div>
+  </div>
 </section>
 
 <footer>
-    <p>© 2026 Rohit IT Solutions</p>
+  <div class="wrap">© 2026 Rohit IT Solutions</div>
 </footer>
+
+<!-- floating buttons -->
+<div class="float-stack">
+  <a class="float-btn call" href="tel:+919614196729" aria-label="Call"><svg><use href="#i-phone"></use></svg></a>
+  <a class="float-btn wa" href="https://wa.me/919614196729?text=Hi%20Rohit%2C%20I%27d%20like%20to%20know%20more" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-wa"></use></svg></a>
+</div>
+
+<!-- modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose"><svg width="16" height="16"><use href="#i-x"></use></svg></button>
+    <div class="modal-tag" id="modalTag"></div>
+    <h3 id="modalTitle"></h3>
+    <p class="desc" id="modalDesc"></p>
+    <ul id="modalList"></ul>
+    <div class="modal-actions">
+      <a class="btn btn-primary" href="https://wa.me/919614196729" target="_blank" rel="noopener" id="modalWa"><svg><use href="#i-wa"></use></svg> Ask about this</a>
+      <a class="btn btn-ghost" href="tel:+919614196729"><svg><use href="#i-phone"></use></svg> Call instead</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const services = [
+  // IT Infrastructure & Support
+  {cat:'infra', tagLabel:'Infrastructure', title:'IT Infrastructure Setup', summary:'Complete office IT environment — network, systems and servers, set up right the first time.', details:['Site survey and network design for your office layout','Structured cabling and network point planning','Workstation, switch and router setup and configuration','Wi-Fi coverage planning and access point placement','Naming convention and IP addressing scheme','Shared folder and printer setup across the office','User account creation for every employee','Basic firewall rules configured from day one','Power backup (UPS) sizing recommendation','Asset labeling and inventory sheet','Structured documentation of every device and login','Vendor and warranty tracking sheet','On-site testing of every connection point','Handover call so your team knows how it all fits together','And more — scoped exactly to your office size and setup']},
+  {cat:'infra', tagLabel:'Cloud', title:'Google Workspace Setup', summary:'Business email and collaboration tools set up and migrated without downtime.', details:['Domain verification and MX record configuration','Mailbox creation for every employee','Data migration from your old email provider','Shared drives structured by team or department','Calendar setup and meeting room resources','Admin console configuration and security settings','Two-factor authentication rollout','Email alias and group setup','Mobile device management basics','Signature and branding setup across accounts','Spam and phishing filter configuration','Storage quota planning per user','Staff onboarding walkthrough session','Ongoing admin support after go-live','And more — matched to how your team actually works']},
+  {cat:'infra', tagLabel:'Cloud', title:'Microsoft 365 Setup', summary:'Enterprise email and collaboration, configured for how your team actually works.', details:['Tenant setup and licensing guidance','User provisioning and group setup','Outlook configuration and mail migration','Teams setup for internal communication','SharePoint site structure for document sharing','OneDrive sync configuration per device','Mail flow rules and shared mailbox setup','Multi-factor authentication rollout','Conditional access basics for security','Distribution list and calendar sharing setup','Backup and retention policy configuration','Admin center walkthrough for your IT contact','Migration from existing email systems','Staff training session on the new tools','And more — based on your licensing tier and needs']},
+  {cat:'infra', tagLabel:'Security', title:'Email Security (SPF, DKIM, DMARC)', summary:'Stop attackers from sending fake emails that look like they\'re from your domain.', details:['Full audit of your current email authentication status','SPF record setup for every authorized sender','DKIM key generation and signing configuration','DMARC policy setup starting in monitoring mode','Gradual DMARC enforcement to avoid mail disruption','Reporting address setup to catch spoofing attempts','Third-party sender (CRM, marketing tools) inclusion in SPF','Testing across major email providers','Documentation of every record added','Alert setup for authentication failures','Guidance on maintaining records as you add tools','Review of existing spam or phishing incidents','Staff awareness tips on spoofed emails','Ongoing monitoring option post-setup','And more — as your sending sources change']},
+  {cat:'infra', tagLabel:'Security', title:'Firewall & VPN', summary:'Secure the perimeter of your network and let your team connect in safely from anywhere.', details:['Current network exposure assessment','Firewall rule configuration for inbound and outbound traffic','Port and service lockdown to only what\'s needed','Site-to-site VPN setup for multiple office locations','Remote-access VPN for staff working off-site','Guest network isolation from internal systems','Basic intrusion detection and alerting','Bandwidth prioritization rules where needed','VPN client setup on staff devices','Logging configuration for audit purposes','Firmware update scheduling','Failover planning for critical connections','Documentation of the full firewall ruleset','Testing from multiple access points','And more — tuned to your risk profile']},
+  {cat:'infra', tagLabel:'Support', title:'Remote IT Support', summary:'Fast troubleshooting over remote session — most issues resolved same day.', details:['Remote diagnosis of system and network issues','Software installation and configuration fixes','Driver and hardware compatibility troubleshooting','Email and account access issues resolved','Slow performance investigation and fixes','Printer and peripheral connectivity fixes','Malware and suspicious activity checks','Browser and application error resolution','File access and permission issues','Priority response over call or WhatsApp','Session notes shared after every fix','Follow-up to confirm the fix holds','Escalation path for hardware-level problems','Flexible scheduling around your working hours','And more — whatever\'s blocking your team that day']},
+  {cat:'infra', tagLabel:'Support', title:'Managed IT Support', summary:'Ongoing monitoring and maintenance so small issues get caught before they become outages.', details:['Scheduled health checks across devices and network','Patch and update management on a set cycle','Antivirus and endpoint protection monitoring','Backup verification as part of routine checks','Monthly summary report of system health','Priority turnaround on new issues raised','Proactive alerts before small issues become outages','Device lifecycle tracking and replacement planning','License renewal reminders','Vendor coordination on your behalf','Quarterly review call to discuss upcoming needs','Documentation kept current as things change','Onboarding of new employees\' devices','Offboarding checklist when staff leave','And more — run quietly in the background']},
+  {cat:'infra', tagLabel:'Cloud', title:'Cloud Backup & Recovery', summary:'Automated backups plus a tested plan for actually getting data back when you need it.', details:['Backup strategy planning based on your critical data','Automated daily or scheduled backup setup','Off-site and cloud storage of backup copies','Versioning so you can restore from a specific date','Encryption of backup data at rest and in transit','Periodic restore testing to confirm backups actually work','Documented recovery procedure for your team','Backup monitoring and failure alerts','Retention policy configuration','Coverage across servers, workstations and cloud apps','Recovery time estimation for planning purposes','Guidance on what to back up and what not to','Support during an actual recovery event','Review and adjustment as your data grows','And more — so backups are never a guessing game']},
+  {cat:'infra', tagLabel:'Infrastructure', title:'Server Setup', summary:'Local or cloud server configuration for file sharing, applications or internal tools.', details:['Requirement gathering based on intended use','Server hardware or cloud instance provisioning','OS installation and security hardening','File share structure and permission setup','User and group access configuration','Resource monitoring setup (CPU, storage, memory)','Scheduled maintenance windows planning','Remote access configuration for administration','Backup integration from day one','Application or database installation as needed','Documentation of the full server configuration','Load and stress testing before go-live','Disaster recovery basics','Handover with admin credentials and guide','And more — sized correctly for your workload']},
+  {cat:'infra', tagLabel:'Infrastructure', title:'DNS Management', summary:'Domain records configured correctly so your website, email and services all resolve properly.', details:['Full audit of your current DNS records','A, AAAA, CNAME and TXT record setup','MX record configuration for email routing','Domain transfer assistance between registrars','Subdomain configuration for apps or services','TTL tuning for faster propagation when needed','SSL certificate alignment with DNS setup','DNS-level troubleshooting for resolution issues','Redundancy planning with secondary DNS','Domain renewal reminders','Documentation of every record and its purpose','Testing across multiple locations and networks','Rollback plan before any major change','Guidance on DNS security where relevant','And more — kept clean as your services grow']},
+  {cat:'infra', tagLabel:'Support', title:'Network Health Check', summary:'A full look at your current network to flag slow points and risks before they cause problems.', details:['Bandwidth and latency testing across the network','Device and firmware version audit','Wi-Fi coverage and interference check','Cabling and physical connection inspection','Security gap identification','Router and switch configuration review','Bottleneck identification under real usage','Guest vs internal network separation check','Backup power and failover review','Written report with prioritized fixes','Cost estimate for recommended upgrades','Before/after comparison once fixes are made','Recommendations ranked by urgency','Follow-up check after implementation','And more — a full picture, not just a glance']},
+  {cat:'infra', tagLabel:'Security', title:'System Audit & Compliance', summary:'A structured review of your IT setup against security best practices.', details:['Access and permission review across systems','Password and authentication policy audit','Backup and patch status verification','Software licensing check','Data storage and handling review','Endpoint security posture assessment','Vendor and third-party access review','Compliance-ready summary report','Risk ranking of identified issues','Remediation plan with priorities','Documentation suitable for audits or clients','Follow-up review after fixes are applied','Guidance on maintaining compliance ongoing','Staff awareness recommendations','And more — depending on your industry\'s requirements']},
+  {cat:'infra', tagLabel:'Support', title:'Data Recovery', summary:'Support recovering data from failed drives, accidental deletion or corrupted files.', details:['Initial diagnosis of the failure type','Assessment of realistic recovery chances upfront','Recovery attempt from failed or corrupted drives','Recovery from accidental deletion','Recovery across HDD, SSD and external drives','Safe handling to avoid further data loss','File integrity check after recovery','Secure handling of recovered sensitive data','Transfer of recovered files to new storage','Root cause explanation of what went wrong','Recommendations to prevent recurrence','Backup setup guidance following recovery','Confidential handling throughout the process','Clear communication before any cost is incurred','And more — handled carefully, not rushed']},
+  {cat:'infra', tagLabel:'Setup', title:'Printer & Device Setup', summary:'Network printers and shared devices installed and configured for the whole office.', details:['Network printer installation and driver setup','Shared access configuration across departments','Scan-to-email and scan-to-folder setup','Wireless printing configuration','Print quota and access control if needed','Troubleshooting for existing problematic devices','Multi-device setup across multiple floors or offices','Mobile printing setup for staff devices','Consumables and maintenance guidance','Firmware updates for security','Label and barcode printer configuration where relevant','Integration with existing software such as billing tools','Documentation of setup for future reference','Follow-up check after installation','And more — every device, properly set up']},
+  {cat:'infra', tagLabel:'Security', title:'Password Policy & Access Control', summary:'Sensible password rules and permission structures that people will actually follow.', details:['Review of current password practices','Role-based access setup across systems','Password policy configuration for length, complexity and expiry','Multi-factor authentication rollout','Single sign-on setup where applicable','Shared account elimination and individual logins','Offboarding checklist for departing staff','Access review schedule going forward','Password manager recommendation and setup','Emergency access procedure documentation','Staff training on password hygiene','Audit trail setup for sensitive systems','Guest and vendor access controls','Alerts for suspicious login attempts','And more — access that\'s easy for the right people, hard for everyone else']},
+  {cat:'infra', tagLabel:'Support', title:'IT Consultation', summary:'An honest second opinion on what to fix, buy or avoid before you spend on IT.', details:['Review of your current setup and business goals','Honest assessment of what actually needs fixing','Budget-aware recommendations, not upsells','Vendor and tool comparisons','Roadmap for IT investment over the next year','Risk areas flagged in plain language','Second opinion on quotes from other providers','Scalability review for future growth','Technology stack recommendations','No-obligation follow-up questions welcome','Written summary after the consultation','Referrals to specialists if outside scope','Prioritized action list you can act on yourself','Clarity on what to do first versus later','And more — the conversation goes wherever your questions take it']},
+
+  {cat:'infra', tagLabel:'Telephony', title:'VoIP & Twilio Phone System Setup', summary:'Business calling set up end-to-end — desk hardphones, mobile softphones and a fully configured Twilio voice platform.', details:['Requirement mapping for lines, extensions and call flows needed','Twilio account setup and phone number provisioning (local, toll-free or virtual)','Twilio Console/portal configuration and a full dashboard walkthrough','IVR (interactive voice response) menu design and setup','Call routing, forwarding and ring-group rules configuration','Softphone app setup on mobile devices and laptops','Desk hardphone provisioning and SIP configuration','SIP trunk setup connecting your existing PBX to Twilio','Voicemail and voicemail-to-email setup','Call recording setup where needed','Call queue and hold music configuration','Number porting from your existing provider','Twilio Studio flow setup for automated call handling','Usage monitoring, billing alerts and cost optimization on the Twilio portal','And more — one phone setup that works the same on desk phones, softphones and mobile']},
+
+  // Software & Web Development
+  {cat:'dev', tagLabel:'Web', title:'Website Design & Development', summary:'A fast, modern business website built to actually convert visitors into enquiries.', details:['Discovery call to understand your business and audience','Custom design matched to your brand, not a generic template','Mobile-responsive layout across all screen sizes','Fast-loading pages optimized for performance','Contact forms with email notifications','Click-to-call and WhatsApp integration','Google Maps and location embedding','Basic on-page SEO setup included','Analytics setup with Google Analytics and Search Console','SSL certificate and security setup','Content structuring and copy guidance','Cross-browser and cross-device testing','Domain and hosting setup assistance','Training on how to update content yourself','And more — a site built to actually bring in enquiries']},
+  {cat:'dev', tagLabel:'Web', title:'E-commerce Website', summary:'An online store set up to handle products, payments and orders reliably.', details:['Product catalog and category structure planning','Payment gateway integration for UPI, cards and wallets','Shopping cart and checkout flow setup','Order and inventory management setup','Shipping and delivery configuration','Coupon and discount system setup','Customer account and order history pages','Mobile checkout optimization','Product search and filtering','Tax and invoice configuration','Abandoned cart handling','Product review and rating system','Security hardening for payment data','Staff training on managing orders','And more — built to actually process sales smoothly']},
+  {cat:'dev', tagLabel:'Software', title:'Web Application Development', summary:'Custom web apps for internal tools, booking systems or client portals.', details:['Requirements mapping before any code is written','Wireframing and user flow planning','Custom front-end development','Custom back-end and API development','Database design for your actual workflow','User authentication and role management','Admin dashboard for managing the system','Third-party integrations as needed','Testing across use cases before launch','Performance optimization','Deployment to your chosen hosting or cloud','Documentation for future developers','Basic training for your team','Post-launch bug-fix window','And more — built around how your business actually works']},
+  {cat:'dev', tagLabel:'Software', title:'Custom Software Development', summary:'Purpose-built software when off-the-shelf tools don\'t fit how your business runs.', details:['Discovery to define exact requirements and scope','Feasibility check before committing to a build','Architecture planning for scalability','Development with regular progress check-ins','Milestone-based delivery, not one big reveal','Testing at every stage, not just at the end','Security review before handover','User manual and technical documentation','Source code delivered fully to you','No vendor lock-in on the final product','Training session for your team','Post-launch support window included','Change request process for future updates','Clear communication throughout the build','And more — software that fits, not software you adapt to']},
+  {cat:'dev', tagLabel:'Software', title:'Mobile App Development', summary:'Android or cross-platform apps built around a clear, specific use case.', details:['Requirement gathering around your specific use case','Wireframing and screen flow planning','UI design matched to your brand','Native or cross-platform build depending on your needs','Backend and API development to support the app','Push notification setup','Payment integration where relevant','Testing across device sizes and OS versions','App store listing preparation','Submission support for Play Store and App Store','Analytics integration to track usage','Crash reporting and monitoring setup','Post-launch bug fixing window','Guidance on future feature roadmap','And more — from first sketch to live app']},
+  {cat:'dev', tagLabel:'Web', title:'Website Maintenance & Support', summary:'Keep an existing site updated, secure and running without surprises.', details:['Regular software and plugin updates','Security patch monitoring and application','Uptime monitoring with alerts','Malware scanning and removal if needed','Content updates on request','Broken link and error checking','Backup scheduling for your website','Speed optimization checks','Form and integration testing','SSL certificate renewal tracking','Compatibility checks after major updates','Monthly health report','Fast response if something breaks','Small design tweaks as your business evolves','And more — so the site keeps running without you thinking about it']},
+  {cat:'dev', tagLabel:'Software', title:'API Integration & Automation', summary:'Connect your tools together so data moves without manual copy-pasting.', details:['Mapping of your current tools and data flow','Integration between existing software and services','Custom API development where no existing connector exists','Workflow automation for repetitive tasks','Data sync between systems like CRM and accounting tools','Error handling and failure alerts on automations','Testing to confirm data flows correctly','Rate-limit and security handling for external APIs','Documentation of every integration built','Scheduled automations for recurring tasks','Webhook setup for real-time triggers','Review of automation performance over time','Scalability planning as your tool stack grows','Support if a connected service changes its API','And more — less manual work, fewer copy-paste errors']},
+  {cat:'dev', tagLabel:'Software', title:'Database Design & Management', summary:'A properly structured database so your data stays accurate as you scale.', details:['Requirement gathering based on your actual data','Schema design for accuracy and speed','Migration from spreadsheets or legacy systems','Data cleaning and de-duplication','Backup and recovery configuration','Access control and permission setup','Query optimization for faster performance','Indexing strategy for large datasets','Reporting structure setup','Data validation rules to prevent bad entries','Scalability planning for growth','Documentation of the full schema','Regular maintenance scheduling','Support for future structural changes','And more — data you can actually trust and query']},
+
+  // Digital Marketing
+  {cat:'marketing', tagLabel:'Marketing', title:'Search Engine Optimization', summary:'Get found on Google for the searches that actually bring you customers.', details:['Keyword research specific to your business and area','Competitor analysis for your industry','On-page SEO fixes across your website','Technical SEO audit covering speed, structure and indexing','Local SEO setup for map-pack visibility','Content gap analysis and recommendations','Backlink strategy and outreach guidance','Image and metadata optimization','Mobile SEO checks','Schema markup implementation','Google Search Console setup and monitoring','Monthly ranking and traffic report','Ongoing adjustments based on algorithm changes','Conversion tracking setup','And more — long-term visibility, not a quick trick']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Google Ads / PPC Management', summary:'Paid campaigns set up and managed to keep cost-per-lead under control.', details:['Campaign structure built around your specific goals','Keyword and audience research','Ad copywriting and creative guidance','Landing page alignment for better conversion','Bid strategy setup and budget planning','Negative keyword management to cut wasted spend','Conversion tracking setup','A/B testing of ad variations','Geographic and demographic targeting','Remarketing campaign setup','Weekly performance monitoring','Monthly report with clear cost-per-lead numbers','Ongoing optimization based on real data','Scaling guidance once a campaign proves itself','And more — spend that\'s tracked, not guessed at']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Social Media Marketing', summary:'Consistent, on-brand presence across the platforms your customers actually use.', details:['Platform strategy based on where your customers actually are','Content calendar planning','Post design matched to your brand','Caption writing in your brand\'s voice','Scheduling and consistent posting','Hashtag and reach strategy','Basic ad boosting where it makes sense','Community management and comment responses','Story and reel content planning','Analytics tracking across platforms','Competitor content benchmarking','Monthly performance summary','Campaign ideas tied to your business calendar','Profile optimization for bio, links and highlights','And more — presence that actually looks after itself']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Content Marketing', summary:'Blog posts, articles and copy that support your SEO and build trust.', details:['Topic planning aligned to what customers search for','Keyword-informed content briefs','Written content in plain, clear language','Blog structuring for SEO and readability','On-site publishing and formatting','Internal linking strategy','Content calendar planning','Repurposing content across formats','Guest post or outreach opportunities','Performance tracking over time','Content refresh for older pages','Tone and style guide alignment','Call-to-action placement within content','Reporting on traffic and engagement','And more — content that earns its place on the page']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Google My Business Setup', summary:'Get your business showing correctly on Google Search and Maps.', details:['Profile creation and verification support','Category and business information optimization','Hours, photos and service listings setup','Review response strategy and templates','Q&A section management','Post scheduling for offers and updates','Local search visibility improvements','Duplicate listing cleanup','Location and service area configuration','Booking or messaging feature setup','Insights tracking for calls, directions and views','Competitor benchmarking in local search','Guidance on encouraging genuine reviews','Monthly performance summary','And more — showing up correctly when it matters']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Email Marketing Campaigns', summary:'Newsletters and promotional emails that reach the inbox, not the spam folder.', details:['Email list setup and segmentation','Campaign design matched to your brand','Copywriting for subject lines and body content','Deliverability configuration linked to your email security setup','Automated welcome and follow-up sequences','A/B testing of subject lines and content','Unsubscribe and compliance handling','List cleaning to reduce bounce rates','Send-time optimization','Template library for repeat use','Open-rate and click tracking','Campaign performance reporting','Integration with your website or CRM','Re-engagement campaigns for inactive contacts','And more — emails that reach the inbox, not spam']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Branding & Graphic Design', summary:'A visual identity — logo, colors and templates — that looks consistent everywhere.', details:['Brand discovery to understand your positioning','Logo design with revisions','Brand color palette and typography selection','Business card and letterhead templates','Social media post templates','Brochure or flyer design','Signage and print material design','Email signature design','Packaging design where relevant','Presentation and deck template design','Brand guideline document','Icon and graphic asset library','Consistency review across existing materials','Support for future design needs','And more — a look that\'s consistent everywhere it appears']},
+  {cat:'marketing', tagLabel:'Marketing', title:'Online Reputation Management', summary:'Monitor and respond to reviews so your online presence reflects your actual service.', details:['Review monitoring across Google, social and other platforms','Response templates and strategy for reviews','Guidance on encouraging genuine customer reviews','Negative review handling protocol','Brand mention monitoring online','Competitor reputation benchmarking','Crisis response guidance if something goes wrong','Review generation campaigns via email or SMS','Monthly reputation summary report','Sentiment tracking over time','Coordination on recurring customer complaints','Third-party review site profile optimization','Search result monitoring for your brand name','Recommendations to improve overall rating','And more — an online reputation that reflects your real service']},
+];
+
+const grid = document.getElementById('serviceGrid');
+
+function renderGrid(filter){
+  grid.innerHTML = '';
+  const list = filter === 'all' ? services : services.filter(s => s.cat === filter);
+  list.forEach((s, i) => {
+    const card = document.createElement('button');
+    card.className = 'service-card';
+    card.innerHTML = `
+      <div class="num">${s.tagLabel}</div>
+      <h3>${s.title}</h3>
+      <p>${s.summary}</p>
+      <span class="see-more">View details <svg><use href="#i-arrow"></use></svg></span>
+    `;
+    card.addEventListener('click', () => openModal(s));
+    grid.appendChild(card);
+  });
+}
+renderGrid('all');
+
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('.tab');
+  if(!btn) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(btn.dataset.filter);
+});
+
+// modal
+const backdrop = document.getElementById('modalBackdrop');
+const modalTag = document.getElementById('modalTag');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalList = document.getElementById('modalList');
+const modalWa = document.getElementById('modalWa');
+
+function openModal(s){
+  modalTag.textContent = s.tagLabel;
+  modalTitle.textContent = s.title;
+  modalDesc.textContent = s.summary;
+  modalList.innerHTML = s.details.map(d => `<li><svg><use href="#i-check"></use></svg><span>${d}</span></li>`).join('');
+  modalWa.href = `https://wa.me/919614196729?text=${encodeURIComponent('Hi Rohit, I want to know more about: ' + s.title)}`;
+  backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  backdrop.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+backdrop.addEventListener('click', (e) => { if(e.target === backdrop) closeModal(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+// theme toggle (dark / light)
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+function applyTheme(theme){
+  if(theme === 'light'){
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeIcon.setAttribute('href', '#i-sun');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    themeIcon.setAttribute('href', '#i-moon');
+  }
+}
+let savedTheme = null;
+try{ savedTheme = localStorage.getItem('rohit-theme'); }catch(e){}
+applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+themeToggle.addEventListener('click', () => {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  applyTheme(next);
+  try{ localStorage.setItem('rohit-theme', next); }catch(e){}
+});
+
+// mobile nav
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+const menuIcon = document.getElementById('menuIcon');
+menuBtn.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  menuIcon.setAttribute('href', navLinks.classList.contains('open') ? '#i-x' : '#i-menu');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  menuIcon.setAttribute('href', '#i-menu');
+}));
+</script>
 
 </body>
 </html>
